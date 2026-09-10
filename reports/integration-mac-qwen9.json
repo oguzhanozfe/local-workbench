@@ -1,0 +1,163 @@
+{
+  "model": "qwen3.5:9b",
+  "context_tokens": 8192,
+  "checks": [
+    {
+      "integration": "product_cli_bridge",
+      "passed": true,
+      "seconds": 1.989371416,
+      "result": {
+        "supported": true,
+        "source_ids": [
+          "test.sql"
+        ],
+        "reason": "The evidence indicates the candidate wrote SQL queries for a tutorial funnel."
+      }
+    },
+    {
+      "integration": "career_json_http_bridge",
+      "passed": true,
+      "seconds": 1.5446722080000002,
+      "result": {
+        "supported": true,
+        "source_ids": [
+          "test.sql"
+        ],
+        "reason": "The evidence indicates the candidate wrote SQL queries for a tutorial funnel."
+      },
+      "observed": {
+        "observed_model": "local-workbench"
+      }
+    },
+    {
+      "integration": "rag_to_local_task",
+      "passed": true,
+      "seconds": 6.669207292,
+      "result": {
+        "id": "task-80ea94d8a7c44c42b2c771502f72a6a7",
+        "packet_id": "packet-995c03234e7cc62ec029a79a",
+        "packet_sha256": "995c03234e7cc62ec029a79a8940952c2aaa56793597434e45c7dc1c63964a16",
+        "packet": {
+          "schema_version": 1,
+          "kind": "product_brief",
+          "task": "Summarize the recorded merge gesture problem and propose one test. Do not claim measured improvement.",
+          "evidence": [
+            {
+              "id": "c_99a9052cb54185818f87b6b4",
+              "text": "# Synthetic research: onboarding in Marble Harbor\n\nThis is a fictional product fixture. No real company or player data is included.\n\nThe September onboarding study included 24 participants. Seventeen participants\ncompleted the tutorial without assistance; seven needed help with the merge gesture.\nThe study measured tutorial comprehension, not retention or revenue.\n\nDecision: add a short merge-gesture hint before testing a shorter tutorial.\nOwner: the fictional onboarding squad. The next experiment should compare tutorial\ncompletion, time to first successful merge, and day-one return rate.\n\nConstraint: this qualitative study does not establish a causal retention improvement.\n",
+              "approved": true,
+              "status": "current",
+              "source_sha256": "b9183134b068708d2b53e0a895d4e88ccac73ab4ff58f1111c187d26377231ef",
+              "source": "onboarding-study.md",
+              "span": {
+                "start_line": 1,
+                "end_line": 13,
+                "start_char": 0,
+                "end_char": 683
+              }
+            }
+          ],
+          "output_schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "answerable",
+              "facts",
+              "proposal",
+              "assumptions",
+              "unknowns"
+            ],
+            "properties": {
+              "answerable": {
+                "type": "boolean"
+              },
+              "facts": {
+                "type": "array",
+                "maxItems": 12,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "evidence_id",
+                    "quote"
+                  ],
+                  "properties": {
+                    "evidence_id": {
+                      "type": "string"
+                    },
+                    "quote": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              },
+              "proposal": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "assumptions": {
+                "type": "array",
+                "maxItems": 12,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "unknowns": {
+                "type": "array",
+                "maxItems": 12,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        },
+        "status": "unreviewed_draft",
+        "kind": "product_brief",
+        "model": "local-workbench",
+        "result": {
+          "answerable": true,
+          "facts": [
+            {
+              "evidence_id": "c_99a9052cb54185818f87b6b4",
+              "quote": "seven needed help with the merge gesture"
+            },
+            {
+              "evidence_id": "c_99a9052cb54185818f87b6b4",
+              "quote": "The study measured tutorial comprehension, not retention or revenue."
+            }
+          ],
+          "proposal": "add a short merge-gesture hint before testing a shorter tutorial",
+          "assumptions": [],
+          "unknowns": [
+            "day-one return rate"
+          ]
+        },
+        "validation": {
+          "schema": "passed",
+          "citations": "passed",
+          "quotes": "passed",
+          "factual_review": "pending",
+          "excluded_evidence": 0
+        },
+        "provider_attempts": 1,
+        "usage": {
+          "prompt_eval_count": 598,
+          "eval_count": 177,
+          "total_duration": 6623877542,
+          "load_duration": 1015334,
+          "prompt_eval_duration": 707154000,
+          "eval_duration": 5859115000
+        },
+        "allowed_evidence_ids": [
+          "c_99a9052cb54185818f87b6b4"
+        ]
+      }
+    }
+  ]
+}

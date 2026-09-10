@@ -353,6 +353,7 @@ class Runtime:
                     "digest": installed.get(profile.model),
                     "num_ctx": profile.num_ctx,
                     "output_tokens": profile.output_tokens,
+                    "thinking": profile.thinking,
                 }
                 for alias, profile in self.settings.models.items()
             ]
@@ -405,7 +406,7 @@ class Runtime:
             "model": profile.model,
             "messages": messages,
             "stream": False,
-            "think": False,
+            "think": profile.thinking,
             "options": {
                 "num_ctx": profile.num_ctx,
                 "num_predict": output_tokens,

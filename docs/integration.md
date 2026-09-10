@@ -1,6 +1,6 @@
 # Existing workflow integration
 
-Local Workbench accepts the nonstream Chat Completions shape used by an external workflow's HTTP bridge. Start the gateway and select the `local-workbench` alias. These commands run from the external application's checkout; `$REPO_ROOT` is that checkout, not this project.
+Local Workbench accepts the nonstream Chat Completions shape used by an external workflow's HTTP bridge. Start the gateway and select the `local-workbench` alias. The current Mac profile maps that alias to Qwen3.5 9B with an 8,192-token context and a 768-token output budget. Changing the selected profile does not require changing the client's model alias. These commands run from the external application's checkout; `$REPO_ROOT` is that checkout, not this project.
 
 ```sh
 cd "$REPO_ROOT"
@@ -43,7 +43,7 @@ Transparent HTTP integration changes only inference transport. Use the separate 
 
 Local Workbench's task packet is a separate contract with its own hash. It is not an importable review for another application. Private adapters can map it to their own evidence proposal workflow; this public project does not ship adapters containing private source data or application code.
 
-With `config/mac.json` and its 4,096-token context, request retrieval explicitly with `limit:1`:
+With `config/mac.json` and its 8,192-token context, start retrieval explicitly with `limit:1`:
 
 ```json
 {
@@ -55,6 +55,8 @@ With `config/mac.json` and its 4,096-token context, request retrieval explicitly
 ```
 
 The API's generic default of five spans is intended for larger budgets. A result set that does not fit is rejected in full; no evidence disappears silently. A single large span can still exceed the Mac profile, particularly after including the task and output schema.
+
+The [local validation record](live-validation.md) distinguishes current model fixture results from the earlier integration smoke checks, which used the retired Mac 27B profile. Transport compatibility does not establish identical output quality after a model change.
 
 ## PC backend
 

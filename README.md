@@ -18,7 +18,7 @@ export LOCAL_WORKBENCH_STATE=/absolute/path/to/local-workbench-state
 .venv/bin/local-workbench --config config/mac.json serve
 ```
 
-The server listens on `127.0.0.1:8090`. `config/mac.json` selects `qwen3.8:27b-q4_K_M` with a 4,096-token context for testing on a 24 GB Mac. Install the model with `ollama pull qwen3.8:27b-q4_K_M` and check memory residency and latency on the machine; see [live validation](docs/live-validation.md) for measured status. `config/mac-small.json` uses `qwen3.5:4b` at 8,192 tokens as a smaller baseline.
+The server listens on `127.0.0.1:8090`. `config/mac.json` selects `qwen3.5:9b` with an 8,192-token context, a 768-token output budget and a two-minute keep-alive. Install it with `ollama pull qwen3.5:9b`. On the tested 24 GB M5 Pro, this model passed all six synthetic fixture checks at a median 4.80 seconds per model request and 31.00 output tokens/s. It replaces the 27B Mac profile, which caused substantial memory pressure. These are local workflow measurements, not general quality scores; see [live validation](docs/live-validation.md) and [model selection](docs/model-selection.md). `config/mac-small.json` retains the 4B baseline.
 
 Model downloads, Ollama startup and profile selection are manual. Keep private configuration outside the checkout and use `LOCAL_WORKBENCH_CONFIG` to select its location.
 
@@ -50,7 +50,7 @@ The chat route preserves message contents and order without adding retrieval, a 
 
 `response_format` accepts `text`, `json_object`, or `json_schema` with a `json_schema.schema` object. The supported JSON Schema subset includes object, array and value constraints, plus acyclic document-local `#/$defs/` references. External or recursive references, `$id`, dynamic references and regular-expression constraints are rejected before inference. Size and nesting are bounded, and reference resolution cannot fetch network resources.
 
-Native Ollama calls set `think:false`, `stream:false`, `num_ctx`, `num_predict` and temperature explicitly. `max_tokens` or `max_completion_tokens` can lower the profile's completion budget. Exhausted budgets and malformed responses return errors. The optional `gateway_strip_json_fence` setting removes one complete Markdown JSON fence before parsing, without a model rewrite.
+Native Ollama calls set `stream:false`, context, completion budget and temperature explicitly. The per-model `thinking` boolean defaults to `false`; an [explicit reasoning alias](docs/reasoning.md) can enable it. The gateway returns final content and excludes the separate thinking trace from responses and logs. `max_tokens` or `max_completion_tokens` can lower the profile's completion budget. Exhausted budgets and malformed responses return errors. The optional `gateway_strip_json_fence` setting removes one complete Markdown JSON fence before parsing, without a model rewrite.
 
 ## Evidence tasks
 
@@ -76,7 +76,7 @@ Only current evidence with explicit `approved:true` enters a packet; omitted app
 
 An optional `retrieval` object supplies `query`, `limit` and `mode` (`lexical` or `hybrid`). Before creating the packet, the task runner queries the configured Evidence RAG service with `approved_only:true` and `statuses:["current"]`. The returned packet preserves its exact spans and source hashes. The model has no search or tool loop, and the chat route never adds retrieval.
 
-For the Mac's 4,096-token profile, start with `"retrieval":{"query":"Your evidence question","limit":1,"mode":"hybrid"}`. The API default of five spans can exceed this profile's conservative budget. Even one long span may be rejected. Use a shorter span or narrower task, or validate a larger model context; the gateway never silently drops retrieved sources.
+For the Mac's 8,192-token profile, start with `"retrieval":{"query":"Your evidence question","limit":1,"mode":"hybrid"}` and increase the limit only after checking packet size. The API default of five spans can exceed this profile's conservative budget. Even one long span may be rejected. Use a shorter span or narrower task, or validate a larger model context; the gateway never silently drops retrieved sources.
 
 The response includes `packet`, `packet_id`, `packet_sha256`, result, validation status and actual provider attempts. Save it to retain the evidence used. A repair keeps the original packet unchanged and appends the failed output with a correction request. Configuration allows zero to two repairs, with one by default. Exhausted budgets or invalid output return errors.
 
@@ -86,7 +86,7 @@ Each model alias has a context and output budget. Admission estimates an upper t
 
 Each process runs one generation at a time. The default queue holds four waiting requests for up to 20 seconds; a full queue or expired wait returns HTTP 429. Use one server process per shared GPU because each Uvicorn worker has its own queue. Provider calls have a separate timeout. RAG requests are bounded and do not occupy a generation slot.
 
-`config/rtx3090.json` starts Qwen3.8 27B Q4_K_M at 8,192 tokens and one active generation. Memory fit and latency still need measurement on the 24 GB GPU. Residency and usable context depend on weights, runtime and KV cache. See [deployment](docs/deployment.md) and [live validation](docs/live-validation.md).
+`config/rtx3090.json` uses Qwen3.8 27B Q4_K_M at 32,768 context tokens and a 2,048-token output budget, with one active generation. On the tested Windows RTX 3090, this profile passed all six fixtures at a median 5.35 seconds per model request and 40.05 output tokens/s; a separate snapshot showed the model entirely on GPU. The optional `pc-reasoning` alias uses 65,536 context tokens with thinking enabled. These context settings have not been validated with long-input accuracy tests. See [PC measurements](docs/pc-validation.md), [reasoning profiles](docs/reasoning.md) and [deployment](docs/deployment.md).
 
 ## Integration and privacy
 

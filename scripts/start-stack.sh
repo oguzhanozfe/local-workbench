@@ -43,9 +43,9 @@ trap 'exit 143' TERM
 
 "$workbench_rag_root/.venv/bin/evidence-rag" --db "$workbench_db" \
   --ollama-url "${OLLAMA_BASE_URL:-http://127.0.0.1:11434}" \
-  --chat-model "${OLLAMA_CHAT_MODEL:-qwen3.8:27b-q4_K_M}" \
+  --chat-model "${OLLAMA_CHAT_MODEL:-qwen3.5:9b}" \
   --embedding-model "${OLLAMA_EMBEDDING_MODEL:-qwen3-embedding:0.6b}" \
-  --context-tokens "${OLLAMA_CONTEXT_TOKENS:-4096}" \
+  --context-tokens "${OLLAMA_CONTEXT_TOKENS:-8192}" \
   --max-output-tokens "${OLLAMA_MAX_OUTPUT_TOKENS:-768}" \
   serve --host 127.0.0.1 --port 8091 &
 workbench_rag_pid=$!

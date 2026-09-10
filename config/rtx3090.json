@@ -2,12 +2,35 @@
   "state_dir": "${LOCAL_WORKBENCH_STATE}",
   "ollama_url": "http://127.0.0.1:11434",
   "models": {
-    "local-workbench": {"model": "qwen3.8:27b-q4_K_M", "num_ctx": 8192, "output_tokens": 1024, "temperature": 0},
-    "pc-qwen": {"model": "qwen3.8:27b-q4_K_M", "num_ctx": 8192, "output_tokens": 1024, "temperature": 0}
+    "local-workbench": {
+      "model": "qwen3.8:27b-q4_K_M",
+      "num_ctx": 32768,
+      "output_tokens": 2048,
+      "temperature": 0,
+      "thinking": false
+    },
+    "pc-qwen": {
+      "model": "qwen3.8:27b-q4_K_M",
+      "num_ctx": 32768,
+      "output_tokens": 2048,
+      "temperature": 0,
+      "thinking": false
+    },
+    "pc-reasoning": {
+      "model": "qwen3.8:27b-q4_K_M",
+      "num_ctx": 65536,
+      "output_tokens": 8192,
+      "temperature": 0.6,
+      "thinking": true,
+      "keep_alive": "5m"
+    }
   },
-  "provider_timeout_seconds": 300,
+  "provider_timeout_seconds": 600,
   "queue_limit": 4,
   "queue_timeout_seconds": 30,
   "task_repairs": 1,
-  "retrieval": {"search_url": "http://127.0.0.1:8091/v1/search", "corpus_id": "default"}
+  "retrieval": {
+    "search_url": "http://127.0.0.1:8091/v1/search",
+    "corpus_id": "default"
+  }
 }

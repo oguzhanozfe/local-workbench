@@ -1,0 +1,24 @@
+{
+  "model": "qwen3.8-orcarouter:27b-q4_K_M",
+  "source": "https://huggingface.co/bartowski/orcarouter_Qwen3.8-27B-Uncensored-GGUF",
+  "source_model": "https://huggingface.co/orcarouter/Qwen3.8-27B-Uncensored",
+  "import": {
+    "model": "qwen3.8-orcarouter:27b-q4_K_M",
+    "files": {
+      "orcarouter_Qwen3.8-27B-Uncensored-Q4_K_M.gguf": "sha256:6c8c7658fe13eef22666aa89862f7fb70aa72109838cf19989e59b15875e5e08",
+      "mmproj-orcarouter_Qwen3.8-27B-Uncensored-f16.gguf": "sha256:bf709317815597d2ee48b8fb10796c9a22006da2f329d76e37761433a66fa697"
+    },
+    "template": "{{ .Prompt }}",
+    "renderer": "qwen3.8",
+    "parser": "qwen3.5",
+    "parameters": {
+      "temperature": 1,
+      "top_k": 20,
+      "top_p": 0.95,
+      "min_p": 0,
+      "presence_penalty": 0,
+      "repeat_penalty": 1
+    }
+  },
+  "scope": "Local import of verified GGUF files after remote registry finalization stalled. Rendering configuration matches the installed official Qwen3.8 model."
+}

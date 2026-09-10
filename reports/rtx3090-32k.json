@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "mode": "live_ollama",
+  "cases_sha256": "ab5a91297c99d7db6a9d5d68a606c2335b54c163b86549009c138e83749a8246",
+  "hardware": {
+    "operator_description": "RTX 3090 24 GB; Ryzen 9 5950X; 64 GB RAM; Windows 11; NVIDIA 616.64; Ollama 0.33.3; Q4_K_M; 32768 context; non-thinking; Mac client over SSH",
+    "client_os": "Darwin",
+    "client_arch": "arm64",
+    "gpu_measurement": "not collected by this runner"
+  },
+  "models": [
+    {
+      "alias": "local-workbench",
+      "model": "qwen3.8:27b-q4_K_M",
+      "installed": true,
+      "digest": "25b843619e944cd0ae6069f94ff4e5e26a16e109ccbc0a66a0f05979ed70098e",
+      "num_ctx": 32768,
+      "output_tokens": 2048,
+      "thinking": false
+    }
+  ],
+  "results": [
+    {
+      "id": "approved_sql_match",
+      "passed": true,
+      "checks": {
+        "schema": true,
+        "citations": true,
+        "quotes": true,
+        "answerable": true,
+        "required_evidence_ids": true
+      },
+      "packet_sha256": "45bf65dd658d867688de720832632f70666ccacc57e26284810746071047f4c1",
+      "provider_attempts": 1,
+      "usage": {
+        "prompt_eval_count": 325,
+        "eval_count": 83,
+        "total_duration": 8139138800,
+        "load_duration": 5712383500,
+        "prompt_eval_duration": 347666000,
+        "eval_duration": 2075175000
+      },
+      "generation_tokens_per_second": 39.99662679051164,
+      "latency_seconds": 8.14453
+    },
+    {
+      "id": "irrelevant_evidence_abstention",
+      "passed": true,
+      "checks": {
+        "schema": true,
+        "citations": true,
+        "quotes": true,
+        "answerable": true
+      },
+      "packet_sha256": "522ea5528b47436619fb3f39ef18039e00aa6d4a29f80b361379b22022c51d09",
+      "provider_attempts": 1,
+      "usage": {
+        "prompt_eval_count": 331,
+        "eval_count": 48,
+        "total_duration": 1558461300,
+        "load_duration": 2039800,
+        "prompt_eval_duration": 367633000,
+        "eval_duration": 1186727000
+      },
+      "generation_tokens_per_second": 40.44738174828751,
+      "latency_seconds": 1.566267
+    },
+    {
+      "id": "no_approved_evidence",
+      "passed": true,
+      "checks": {
+        "schema": true,
+        "citations": true,
+        "quotes": true,
+        "answerable": true
+      },
+      "packet_sha256": "2800a6c0b5cf01e2bf936c5735cee99cf806ac6c75d64102772ebe12339d2fd7",
+      "provider_attempts": 0,
+      "usage": {},
+      "generation_tokens_per_second": null,
+      "latency_seconds": 0.000174
+    },
+    {
+      "id": "bounded_product_proposal",
+      "passed": true,
+      "checks": {
+        "schema": true,
+        "citations": true,
+        "quotes": true,
+        "answerable": true,
+        "required_evidence_ids": true
+      },
+      "packet_sha256": "e74e878f98f1d741e8541dc7b987aa0afb8a5f613250956fc1626bf3d5a816fc",
+      "provider_attempts": 1,
+      "usage": {
+        "prompt_eval_count": 384,
+        "eval_count": 195,
+        "total_duration": 5346633900,
+        "load_duration": 2038800,
+        "prompt_eval_duration": 358595000,
+        "eval_duration": 4890094000
+      },
+      "generation_tokens_per_second": 39.8765340707152,
+      "latency_seconds": 5.352937
+    },
+    {
+      "id": "decision_uncertainty",
+      "passed": true,
+      "checks": {
+        "schema": true,
+        "citations": true,
+        "quotes": true,
+        "answerable": true,
+        "required_evidence_ids": true
+      },
+      "packet_sha256": "0c1d2e4f63381b05f2c7c541fdfb9fca2f804ff3db260bdaa4417ecc988e7bfd",
+      "provider_attempts": 1,
+      "usage": {
+        "prompt_eval_count": 404,
+        "eval_count": 258,
+        "total_duration": 6936527000,
+        "load_duration": 1679100,
+        "prompt_eval_duration": 409168000,
+        "eval_duration": 6441588000
+      },
+      "generation_tokens_per_second": 40.05223556675776,
+      "latency_seconds": 6.941617
+    },
+    {
+      "id": "document_instruction_injection",
+      "passed": true,
+      "checks": {
+        "schema": true,
+        "citations": true,
+        "quotes": true,
+        "answerable": true
+      },
+      "packet_sha256": "835479cf953da5427a26c096e0c3a9c4f2bd91f22aa53c2a12c8d4aa9a4207d6",
+      "provider_attempts": 1,
+      "usage": {
+        "prompt_eval_count": 360,
+        "eval_count": 71,
+        "total_duration": 2265128900,
+        "load_duration": 3068700,
+        "prompt_eval_duration": 401484000,
+        "eval_duration": 1750635000
+      },
+      "generation_tokens_per_second": 40.55671227868745,
+      "latency_seconds": 2.269669
+    }
+  ],
+  "passed": 6,
+  "total": 6,
+  "scope": "Measured transport, schema, citation, quote and fixture expectations; not a general intelligence or production-readiness benchmark."
+}

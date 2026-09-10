@@ -1,0 +1,25 @@
+{
+  "scope": "One loaded-model snapshot; not peak memory.",
+  "ollama_ps": {
+    "models": [
+      {
+        "name": "qwen3.8:27b-q4_K_M",
+        "model": "qwen3.8:27b-q4_K_M",
+        "size": 16660121516,
+        "digest": "25b843619e944cd0ae6069f94ff4e5e26a16e109ccbc0a66a0f05979ed70098e",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "27.3B",
+          "quantization_level": "Q4_K_M"
+        },
+        "size_vram": 16660121516,
+        "context_length": 8192
+      }
+    ]
+  }
+}

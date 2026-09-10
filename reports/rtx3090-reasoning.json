@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "scope": "One synthetic planning answer and a loaded 65536-context memory snapshot; not a long-context accuracy benchmark.",
+  "model": "qwen3.8:27b-q4_K_M",
+  "thinking": true,
+  "context_tokens": 65536,
+  "output_budget": 4096,
+  "passed": true,
+  "result": {
+    "selected": [
+      "A",
+      "C"
+    ],
+    "total_cost": 10,
+    "total_value": 15
+  },
+  "wall_seconds": 17.465710958,
+  "reasoning_present": true,
+  "usage": {
+    "prompt_eval_count": 88,
+    "eval_count": 421,
+    "total_duration": 17437745500,
+    "load_duration": 6203200300,
+    "prompt_eval_duration": 184703000,
+    "eval_duration": 10998760000
+  },
+  "residency": {
+    "models": [
+      {
+        "name": "qwen3.8:27b-q4_K_M",
+        "model": "qwen3.8:27b-q4_K_M",
+        "size": 18939725740,
+        "digest": "25b843619e944cd0ae6069f94ff4e5e26a16e109ccbc0a66a0f05979ed70098e",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "27.3B",
+          "quantization_level": "Q4_K_M"
+        },
+        "size_vram": 18939725740,
+        "context_length": 65536
+      }
+    ]
+  }
+}

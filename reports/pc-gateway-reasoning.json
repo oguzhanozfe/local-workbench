@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "model_alias": "pc-reasoning",
+  "context_tokens": 65536,
+  "thinking": true,
+  "output_budget": 2048,
+  "wall_seconds": 15.541523917,
+  "result": {
+    "selected": [
+      "A",
+      "C"
+    ],
+    "total_cost": 10,
+    "total_value": 15
+  },
+  "usage": {
+    "prompt_tokens": 77,
+    "completion_tokens": 213,
+    "total_tokens": 290
+  },
+  "scope": "One synthetic JSON Chat Completions reasoning call through the actual gateway; not a general reasoning or long-context benchmark."
+}

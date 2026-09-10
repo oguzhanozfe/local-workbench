@@ -18,6 +18,7 @@ class ModelProfile(StrictModel):
     num_ctx: int = Field(default=8192, ge=1024, le=131072)
     output_tokens: int = Field(default=768, ge=32, le=8192)
     temperature: float = Field(default=0, ge=0, le=2)
+    thinking: bool = Field(default=False, strict=True)
     keep_alive: str = "5m"
     revision: str | None = Field(default=None, max_length=200)
 

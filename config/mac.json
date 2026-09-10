@@ -2,7 +2,7 @@
   "state_dir": "${LOCAL_WORKBENCH_STATE}",
   "ollama_url": "http://127.0.0.1:11434",
   "models": {
-    "local-workbench": {"model": "qwen3.8:27b-q4_K_M", "num_ctx": 4096, "output_tokens": 768, "temperature": 0}
+    "local-workbench": {"model": "qwen3.5:9b", "num_ctx": 8192, "output_tokens": 768, "temperature": 0, "keep_alive": "2m"}
   },
   "provider_timeout_seconds": 300,
   "queue_limit": 4,

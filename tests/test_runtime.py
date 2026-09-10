@@ -77,12 +77,115 @@ async def test_gateway_preserves_messages_and_native_budgets(tmp_path):
     )
     result = await runtime.chat(request)
     assert captured[0]["messages"] == original
+    assert runtime.profile("local-workbench").thinking is False
     assert captured[0]["think"] is False and captured[0]["format"] == "json"
     assert captured[0]["options"]["num_ctx"] == 8192
     assert result["workbench"]["input_sha256"] == digest(original)
     assert result["usage"]["prompt_tokens"] is None
     logged = (runtime.settings.state_dir / "requests.jsonl").read_text()
     assert "Private text" not in logged and str(tmp_path) not in logged
+    await client.aclose()
+
+
+@pytest.mark.parametrize("value", ["true", "false", "high", "medium", "low", 1, 0, None])
+def test_thinking_configuration_requires_a_boolean(value):
+    with pytest.raises(ValidationError):
+        ModelProfile.model_validate({"model": "fake:explicit", "thinking": value})
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("thinking", [False, True])
+async def test_health_inventory_records_thinking_mode(tmp_path, thinking):
+    runtime, client = await service(
+        tmp_path,
+        lambda _: httpx.Response(
+            200, json={"models": [{"name": "fake:explicit", "digest": "fixture-digest"}]}
+        ),
+    )
+    runtime.settings.models["local-workbench"] = ModelProfile(
+        model="fake:explicit", thinking=thinking
+    )
+    report = await runtime.health()
+    assert report["status"] == "ok"
+    assert report["models"][0]["thinking"] is thinking
+    assert report["models"][0]["digest"] == "fixture-digest"
+    await client.aclose()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("operation", ["chat", "task"])
+async def test_reasoning_alias_sends_mode_without_returning_or_logging_trace(tmp_path, operation):
+    captured = []
+    trace = "PRIVATE PROVIDER REASONING TRACE"
+    raw = ollama(json.dumps(valid_match()) if operation == "task" else '{"ok":true}')
+    raw["message"]["thinking"] = trace
+
+    def handler(request):
+        captured.append(json.loads(request.content))
+        return httpx.Response(200, json=raw)
+
+    runtime, client = await service(tmp_path, handler)
+    runtime.settings.models["pc-reasoning"] = ModelProfile(
+        model="fake:explicit", num_ctx=32768, output_tokens=8192, thinking=True
+    )
+    if operation == "chat":
+        response = await runtime.chat(
+            ChatRequest(
+                model="pc-reasoning",
+                messages=[{"role": "user", "content": "Return JSON."}],
+                response_format={"type": "json_object"},
+            )
+        )
+        assert response["choices"][0]["message"] == {
+            "role": "assistant",
+            "content": '{"ok":true}',
+        }
+    else:
+        response = await runtime.task(task().model_copy(update={"model": "pc-reasoning"}))
+        assert response["result"] == valid_match()
+    assert captured[0]["think"] is True
+    assert captured[0]["options"]["num_ctx"] == 32768
+    assert captured[0]["options"]["num_predict"] == 8192
+    assert runtime.profile("local-workbench").thinking is False
+    logged = (runtime.settings.state_dir / "requests.jsonl").read_text()
+    assert trace not in json.dumps(response) and trace not in logged
+    assert '"thinking"' not in json.dumps(response) and '"thinking"' not in logged
+    await client.aclose()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("done", "done_reason", "content", "error_code"),
+    [
+        (False, None, "", "provider_invalid_response"),
+        (False, None, '{"ok":true}', "provider_invalid_response"),
+        (True, "stop", "", "provider_invalid_response"),
+        (True, "length", "", "provider_invalid_response"),
+        (True, "length", '{"ok":true}', "output_limit_reached"),
+    ],
+)
+async def test_incomplete_reasoning_responses_rejected_without_trace_leak(
+    tmp_path, done, done_reason, content, error_code
+):
+    trace = "PRIVATE UNFINISHED REASONING TRACE"
+    raw = {
+        "message": {"role": "assistant", "content": content, "thinking": trace},
+        "done": done,
+        "done_reason": done_reason,
+    }
+    runtime, client = await service(tmp_path, lambda _: httpx.Response(200, json=raw))
+    runtime.settings.models["local-workbench"] = ModelProfile(model="fake:explicit", thinking=True)
+    with pytest.raises(WorkbenchError) as caught:
+        await runtime.chat(
+            ChatRequest(
+                model="local-workbench", messages=[{"role": "user", "content": "Return JSON."}]
+            )
+        )
+    assert caught.value.code == error_code
+    assert trace not in str(caught.value)
+    logged = (runtime.settings.state_dir / "requests.jsonl").read_text()
+    assert trace not in logged and '"thinking"' not in logged
+    assert json.loads(logged)["status"] == "failed"
     await client.aclose()
 
 
