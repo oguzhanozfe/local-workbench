@@ -33,3 +33,11 @@ export LOCAL_WORKBENCH_STATE=/absolute/path/outside/the/checkout
 Use `config/mac-small.json` for the 4B comparison. A failed fixture makes the command exit with status 1. The runner never substitutes a fake backend for an unavailable model. Offline tests use explicit fakes and are a separate check.
 
 Published reports contain only bundled synthetic fixture identifiers and measurements. No private workflow packets were used in these model evaluations.
+
+## Workflow integration smoke checks
+
+The existing product-workflow CLI bridge and career-workflow JSON HTTP bridge both called the gateway with a synthetic SQL-evidence packet and received the expected source ID. The CLI saved an `unreviewed_draft`. A separate request retrieved an approved onboarding excerpt from Evidence RAG, froze its source hash into a task packet and returned a product proposal that passed schema, citation and exact-quote checks.
+
+These three calls used the Mac 27B profile. Observed request times were 16.82 seconds, 8.19 seconds and 60.94 seconds. They establish these specific transport and task paths; they do not establish compatibility with every workflow, large packet or autonomous tool loop. Application settings and private source files were not changed.
+
+[Inspect the synthetic integration results and retrieved packet](../reports/integration-smoke.json).
