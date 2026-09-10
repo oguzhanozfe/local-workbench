@@ -62,10 +62,13 @@ These synthetic runs were recorded on 10 September 2026. All stages used a 768-t
 | Mac M5 Pro 24 GB, Qwen3.5 9B, application brief | 2/2 | 2 | 23.78 seconds total |
 | Mac M5 Pro 24 GB, Qwen3.5 9B, mobile GDD | 3/3 | 3 | 48.99 seconds total |
 | Windows RTX 3090, Qwen3.8 27B, initial application brief | 0/2 | 2 on the first stage | 31.42 seconds total |
+| Windows RTX 3090, Qwen3.8 27B, application with explicit heading instructions | 2/2 | 2 | 27.50 seconds total |
 | Windows RTX 3090, Qwen3.8 27B, mobile GDD | 3/3 | 3 | 49.81 seconds total |
 
 The [Mac application](../reports/workflow-mac-app.json) and [GDD](../reports/workflow-mac-gdd.json) reports record an 8,192-token model context. The PC reports use a `pc-draft` alias with a 65,536-token context and an 8,192-token profile maximum; each recipe stage still requested only 768 output tokens. These are short inputs and do not validate long-context accuracy.
 
 The [initial PC application](../reports/workflow-pc-app-768-initial.json) failed the exact Markdown heading check on its first attempt and its one permitted repair. It generated 534 and 532 completion tokens, respectively, without exhausting the cap. The second stage was not run and no document was published. Failed response text is not persisted, so the precise formatting variant cannot be determined from this report. The [PC GDD](../reports/workflow-pc-gdd-768.json) passed its structural checks on all three first attempts; its design quality remains unreviewed.
 
-The application recipe now names the literal Markdown heading lines explicitly. Earlier reports retain the original recipe and evidence hashes; the PC reports also identify the source commit. Completed structural checks do not establish that a real application or production GDD is complete or factually correct.
+The application recipe now names the literal Markdown heading lines explicitly. One [fresh PC retry](../reports/workflow-pc-app-768-headings.json) with that change completed both stages on their first attempts, using 577 and 481 completion tokens. The 768-token cap and strict acceptance checks were unchanged. A subsequent `--resume` added zero request-metric rows; parsed report contents and stage hashes were unchanged. The first failed report is retained separately.
+
+Earlier reports retain the original recipe and evidence hashes; the PC reports also identify the source commit. These are individual runs, not statistical comparisons. Completed structural checks do not establish that a real application or production GDD is complete or factually correct.

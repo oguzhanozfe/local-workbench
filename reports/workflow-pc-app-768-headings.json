@@ -1,0 +1,109 @@
+{
+  "format_version": 1,
+  "status": "completed",
+  "review_status": "unreviewed_draft",
+  "factual_review": "pending",
+  "semantic_entailment": "not_tested",
+  "identity": {
+    "format_version": 1,
+    "recipe_sha256": "a3cc8879ecd72b5c9d070bbe05b14946de90b6bb17636ca68ba309c30084e5ab",
+    "evidence_sha256": "06dd8150f0967cf9736a54f30e9690b6fd86c8b8854441fd6dc8000b719a55c6",
+    "model_alias": "pc-draft",
+    "model": {
+      "profile": {
+        "model": "qwen3.8:27b-q4_K_M",
+        "num_ctx": 65536,
+        "output_tokens": 8192,
+        "temperature": 0,
+        "thinking": false,
+        "keep_alive": "5m",
+        "revision": null
+      },
+      "digest": "25b843619e944cd0ae6069f94ff4e5e26a16e109ccbc0a66a0f05979ed70098e",
+      "inventory_scope": "provider_reported_before_and_after_generation"
+    }
+  },
+  "stages": [
+    {
+      "id": "fit",
+      "status": "completed",
+      "attempts": [
+        {
+          "number": 1,
+          "input_sha256": "781fb0e4910cc468d27ef4b7ab277899da75dc7bd54eb264aa912b7a416bdf88",
+          "usage": {
+            "prompt_tokens": 460,
+            "completion_tokens": 577,
+            "total_tokens": 1037
+          },
+          "status": "completed",
+          "output_sha256": "1f1e8a0597f6594afc7072b16d08170131323d1712515d0511f3cc0e4218a44e",
+          "latency_seconds": 14.843
+        }
+      ],
+      "input_sha256": "781fb0e4910cc468d27ef4b7ab277899da75dc7bd54eb264aa912b7a416bdf88",
+      "output_sha256": "1f1e8a0597f6594afc7072b16d08170131323d1712515d0511f3cc0e4218a44e",
+      "checks": {
+        "schema": "passed",
+        "citation_membership": "passed",
+        "exact_quotes": "passed",
+        "word_count": 187,
+        "minimum_words": 60,
+        "headings": "passed",
+        "semantic_entailment": "not_tested",
+        "review_status": "unreviewed_draft"
+      }
+    },
+    {
+      "id": "draft",
+      "status": "completed",
+      "attempts": [
+        {
+          "number": 1,
+          "input_sha256": "15da19a1a4683dee4f32e1f3168bfba8e0b6ddfb9f50678246c2f96672b50897",
+          "usage": {
+            "prompt_tokens": 938,
+            "completion_tokens": 481,
+            "total_tokens": 1419
+          },
+          "status": "completed",
+          "output_sha256": "411cdf4194aaadeba088255545966f874bdf43a96386a5cc8e86965e2217538b",
+          "latency_seconds": 12.656
+        }
+      ],
+      "input_sha256": "15da19a1a4683dee4f32e1f3168bfba8e0b6ddfb9f50678246c2f96672b50897",
+      "output_sha256": "411cdf4194aaadeba088255545966f874bdf43a96386a5cc8e86965e2217538b",
+      "checks": {
+        "schema": "passed",
+        "citation_membership": "passed",
+        "exact_quotes": "passed",
+        "word_count": 133,
+        "minimum_words": 60,
+        "headings": "passed",
+        "semantic_entailment": "not_tested",
+        "review_status": "unreviewed_draft"
+      }
+    }
+  ],
+  "measurement": {
+    "hardware": "Windows 11, NVIDIA RTX 3090 24 GB VRAM, 64 GB system RAM",
+    "measured_at": "2026-09-10",
+    "fixture": "application-brief.json",
+    "source_commit": "639b5918816ea7219b0d74b00c4437593f2ee0ba",
+    "recipe_overrides": {
+      "model": "pc-draft",
+      "output_tokens_per_stage": 768
+    },
+    "recipe_revision": "Explicit literal Markdown heading instructions; original evidence, acceptance checks and output cap preserved.",
+    "process_exit_code": 0,
+    "scope": "Synthetic document stages. Structure, exact quotes, headings and minimum length only; not full real-world task quality."
+  },
+  "resume_verification": {
+    "process_exit_code": 0,
+    "status": "completed",
+    "request_metric_rows_added": 0,
+    "report_equal": true,
+    "stage_hashes_equal": true,
+    "comparison": "parsed_json_equality"
+  }
+}
