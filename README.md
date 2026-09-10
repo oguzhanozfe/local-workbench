@@ -14,22 +14,16 @@ python3 -m venv .venv
 
 # Choose an absolute state directory outside this public checkout.
 export LOCAL_WORKBENCH_STATE=/absolute/path/to/local-workbench-state
+ollama pull qwen3.5:9b
 .venv/bin/local-workbench --config config/mac.json doctor
-.venv/bin/local-workbench --config config/mac.json serve
+.venv/bin/local-workbench --config config/mac.json workflow \
+  --recipe recipes/application-brief.json \
+  --output-dir /absolute/private/path/application-trial
 ```
 
-The server listens on `127.0.0.1:8090`. `config/mac.json` selects `qwen3.5:9b` with an 8,192-token context, a 768-token output budget and a two-minute keep-alive. Install it with `ollama pull qwen3.5:9b`. On the tested 24 GB M5 Pro, this model passed all six synthetic fixture checks at a median 4.80 seconds per model request and 31.00 output tokens/s. It replaces the 27B Mac profile, which caused substantial memory pressure. These are local workflow measurements, not general quality scores; see [live validation](docs/live-validation.md) and [model selection](docs/model-selection.md). `config/mac-small.json` retains the 4B baseline.
+Open `document.md` and `report.json` in the output directory after completion. The CLI runs directly against Ollama and does not need a gateway server. `config/mac.json` selects `qwen3.5:9b` with an 8,192-token context, a 768-token output budget and a two-minute keep-alive. On the tested 24 GB M5 Pro, this model passed all six synthetic fixture checks at a median 4.80 seconds per model request and 31.00 output tokens/s. It replaces the 27B Mac profile, which caused substantial memory pressure. These are local workflow measurements, not general quality scores; see [live validation](docs/live-validation.md) and [model selection](docs/model-selection.md). `config/mac-small.json` retains the 4B baseline.
 
 Model downloads, Ollama startup and profile selection are manual. Keep private configuration outside the checkout and use `LOCAL_WORKBENCH_CONFIG` to select its location.
-
-Run the synthetic example:
-
-```sh
-.venv/bin/local-workbench --config config/mac.json run \
-  --input fixtures/product-brief.json
-```
-
-The [stack launcher](scripts/start-stack.sh) runs the gateway alongside [Evidence RAG](https://github.com/oguzhanozfe/evidence-rag). Install both projects locally and ingest the corpus explicitly.
 
 ## Document workflows
 
@@ -44,6 +38,14 @@ Build a document in small stages and resume after an interruption. Each stage re
 Add `--resume` with the same recipe, model and directory to continue unfinished stages. Completed output includes Markdown and a per-stage report with timings, token counts and evidence/model hashes. Artifacts remain unreviewed drafts. See [workflow recipes and integrity limits](docs/workflows.md); the second included recipe prepares a fictional application brief.
 
 ## API
+
+For an existing HTTP client, start the optional gateway and leave it running in its terminal:
+
+```sh
+.venv/bin/local-workbench --config config/mac.json serve
+```
+
+It listens on `127.0.0.1:8090`. Run the following client request in another terminal. The [stack launcher](scripts/start-stack.sh) can also run Evidence RAG beside it after both projects are installed and a corpus is explicitly indexed.
 
 | Endpoint | Behavior |
 | --- | --- |
@@ -113,6 +115,8 @@ The listener and upstream default to loopback. Other upstreams require an explic
 Offline tests use a fake HTTP backend. They cover exact prompt forwarding, context rejection, malformed output, bounded repair, unsupported citations/quotes, approved-evidence filtering, retrieval provenance, timeouts, queue limits and request/schema validation.
 
 ```sh
+.venv/bin/python -m pip install -e '.[test]'
+.venv/bin/ruff check .
 .venv/bin/python -m pytest -q
 .venv/bin/local-workbench --config config/mac.json evaluate \
   --cases fixtures/evaluation.json \

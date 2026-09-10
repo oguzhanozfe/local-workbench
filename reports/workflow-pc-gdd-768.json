@@ -1,0 +1,130 @@
+{
+  "format_version": 1,
+  "status": "completed",
+  "review_status": "unreviewed_draft",
+  "factual_review": "pending",
+  "semantic_entailment": "not_tested",
+  "identity": {
+    "format_version": 1,
+    "recipe_sha256": "1602f1f0a8523c07b16d76aad920fe378e8a0770c91c34c5da3cb0d521dfc1a5",
+    "evidence_sha256": "70d8007d2d18d861b6ce414ebcaa17faf8a322b963806a5f4591f719fa95504b",
+    "model_alias": "pc-draft",
+    "model": {
+      "profile": {
+        "model": "qwen3.8:27b-q4_K_M",
+        "num_ctx": 65536,
+        "output_tokens": 8192,
+        "temperature": 0,
+        "thinking": false,
+        "keep_alive": "5m",
+        "revision": null
+      },
+      "digest": "25b843619e944cd0ae6069f94ff4e5e26a16e109ccbc0a66a0f05979ed70098e",
+      "inventory_scope": "provider_reported_before_and_after_generation"
+    }
+  },
+  "stages": [
+    {
+      "id": "core",
+      "status": "completed",
+      "attempts": [
+        {
+          "number": 1,
+          "input_sha256": "a4e8c3795fb542ccc7fce858bf4b3f0941fd6192d0d0653014b794bca15300ee",
+          "usage": {
+            "prompt_tokens": 383,
+            "completion_tokens": 666,
+            "total_tokens": 1049
+          },
+          "status": "completed",
+          "output_sha256": "815acf98f83f693e7a1bbe1f8637a6427f2972c9c59679f52fbf8f576b6aa2e0",
+          "latency_seconds": 16.906
+        }
+      ],
+      "input_sha256": "a4e8c3795fb542ccc7fce858bf4b3f0941fd6192d0d0653014b794bca15300ee",
+      "output_sha256": "815acf98f83f693e7a1bbe1f8637a6427f2972c9c59679f52fbf8f576b6aa2e0",
+      "checks": {
+        "schema": "passed",
+        "citation_membership": "passed",
+        "exact_quotes": "passed",
+        "word_count": 333,
+        "minimum_words": 80,
+        "headings": "passed",
+        "semantic_entailment": "not_tested",
+        "review_status": "unreviewed_draft"
+      }
+    },
+    {
+      "id": "progression",
+      "status": "completed",
+      "attempts": [
+        {
+          "number": 1,
+          "input_sha256": "ecc7661e4f1b6f30db2522c4eb609169b22c6fa5cc250c6979ecb938c65857be",
+          "usage": {
+            "prompt_tokens": 1062,
+            "completion_tokens": 590,
+            "total_tokens": 1652
+          },
+          "status": "completed",
+          "output_sha256": "4de3e2d8a4a36ae6d25681463d7a287f38d1bd2ad48edefe6520052581ff4855",
+          "latency_seconds": 15.563
+        }
+      ],
+      "input_sha256": "ecc7661e4f1b6f30db2522c4eb609169b22c6fa5cc250c6979ecb938c65857be",
+      "output_sha256": "4de3e2d8a4a36ae6d25681463d7a287f38d1bd2ad48edefe6520052581ff4855",
+      "checks": {
+        "schema": "passed",
+        "citation_membership": "passed",
+        "exact_quotes": "passed",
+        "word_count": 247,
+        "minimum_words": 80,
+        "headings": "passed",
+        "semantic_entailment": "not_tested",
+        "review_status": "unreviewed_draft"
+      }
+    },
+    {
+      "id": "review",
+      "status": "completed",
+      "attempts": [
+        {
+          "number": 1,
+          "input_sha256": "dcb20479a3af859262b1c092dad7a206d8537c529ad180147ea3354aa8202d5c",
+          "usage": {
+            "prompt_tokens": 1562,
+            "completion_tokens": 664,
+            "total_tokens": 2226
+          },
+          "status": "completed",
+          "output_sha256": "707698f440b20727334dfb9afab641a586cde0a65733343fb3bb70af89b92222",
+          "latency_seconds": 17.344
+        }
+      ],
+      "input_sha256": "dcb20479a3af859262b1c092dad7a206d8537c529ad180147ea3354aa8202d5c",
+      "output_sha256": "707698f440b20727334dfb9afab641a586cde0a65733343fb3bb70af89b92222",
+      "checks": {
+        "schema": "passed",
+        "citation_membership": "passed",
+        "exact_quotes": "passed",
+        "word_count": 292,
+        "minimum_words": 80,
+        "headings": "passed",
+        "semantic_entailment": "not_tested",
+        "review_status": "unreviewed_draft"
+      }
+    }
+  ],
+  "measurement": {
+    "hardware": "Windows 11, NVIDIA RTX 3090 24 GB VRAM, 64 GB system RAM",
+    "measured_at": "2026-09-10",
+    "fixture": "mobile-gdd.json",
+    "source_commit": "bfcedc3fe700f0a726e91ee179a06c12fe57dc10",
+    "recipe_overrides": {
+      "model": "pc-draft",
+      "output_tokens_per_stage": 768
+    },
+    "process_exit_code": 0,
+    "scope": "Synthetic document stages. Structure, exact quotes, headings and minimum length only; not full real-world task quality."
+  }
+}
