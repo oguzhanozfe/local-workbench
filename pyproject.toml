@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=75,<83"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "local-workbench"
+version = "0.1.0"
+description = "A local inference gateway and evidence-bounded task runner"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{name = "Oğuzhan Özdemir"}]
+dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.34,<1", "httpx>=0.28,<1", "pydantic>=2.10,<3", "jsonschema>=4.23,<5"]
+
+[project.optional-dependencies]
+test = ["pytest>=8.3,<10", "pytest-asyncio>=0.25,<2", "ruff>=0.11,<1"]
+mcp = ["mcp==2.2.0"]
+
+[project.scripts]
+local-workbench = "local_workbench.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP", "B"]

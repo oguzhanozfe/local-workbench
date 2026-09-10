@@ -1,0 +1,9 @@
+{
+  "model": "local-workbench",
+  "kind": "evidence_match",
+  "task": "Which approved evidence supports a role requirement for SQL analysis? Identify the gap for Kubernetes ownership.",
+  "evidence": [
+    {"id": "claim.sql", "text": "The fictional candidate wrote SQL queries to compare tutorial completion across two test builds.", "approved": true, "status": "current"},
+    {"id": "claim.kubernetes", "text": "The candidate owned Kubernetes infrastructure.", "approved": false, "status": "current"}
+  ]
+}

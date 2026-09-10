@@ -1,0 +1,9 @@
+{
+  "model": "local-workbench",
+  "kind": "product_brief",
+  "task": "Propose one small tutorial revision. Use the observed issue, keep uncertainty explicit, and do not claim a retention improvement.",
+  "evidence": [
+    {"id": "observation.tutorial", "text": "In the synthetic five-person playtest, three participants did not notice the Undo button.", "approved": true, "status": "current"},
+    {"id": "constraint.session", "text": "The tutorial must keep manual input and must not add a timer.", "approved": true, "status": "current"}
+  ]
+}
