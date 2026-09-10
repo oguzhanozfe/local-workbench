@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "title": "Fictional product analyst application brief",
+  "model": "local-workbench",
+  "language": "English",
+  "repairs": 1,
+  "evidence": [
+    {
+      "id": "candidate.sql",
+      "text": "The fictional candidate Maya Chen wrote SQL queries for a tutorial funnel at Example Studio. The work identified missing analytics events. No retention improvement was measured.",
+      "approved": true,
+      "status": "current"
+    },
+    {
+      "id": "candidate.delivery",
+      "text": "Maya Chen coordinated weekly planning with two designers during a six-week prototype. The prototype was tested internally and was not launched commercially.",
+      "approved": true,
+      "status": "current"
+    },
+    {
+      "id": "role.requirements",
+      "text": "The fictional role asks for SQL analysis, clear experiment plans and collaboration with designers. Commercial live-operations experience is preferred.",
+      "approved": true,
+      "status": "current"
+    }
+  ],
+  "stages": [
+    {
+      "id": "fit",
+      "title": "Role fit and evidence gaps",
+      "instructions": "Write an internal role-fit assessment. Separate demonstrated experience from missing evidence. The role's requirements are not candidate achievements. Do not imply that event debugging increased retention or that an internal prototype was commercially launched.",
+      "depends_on": [],
+      "evidence_ids": ["candidate.sql", "candidate.delivery", "role.requirements"],
+      "output_tokens": 768,
+      "min_words": 60,
+      "required_headings": ["Supported fit", "Gaps"]
+    },
+    {
+      "id": "draft",
+      "title": "Application paragraph draft",
+      "instructions": "Use the prior fit assessment to write a concise first-person application paragraph, then a short internal review note. Preserve names, quantities and scope. Do not invent salary, degree, employment dates, A/B test ownership or personal enthusiasm. Put missing evidence in unknowns. This is a fictional writing demo, not a submitted application.",
+      "depends_on": ["fit"],
+      "evidence_ids": ["candidate.sql", "candidate.delivery", "role.requirements"],
+      "output_tokens": 768,
+      "min_words": 60,
+      "required_headings": ["Application draft", "Review note"]
+    }
+  ]
+}

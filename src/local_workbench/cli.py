@@ -14,6 +14,7 @@ from .config import load_settings
 from .contracts import TaskRequest
 from .evaluation import evaluate
 from .runtime import Runtime, WorkbenchError
+from .workflow import run_workflow
 
 
 def parser():
@@ -37,6 +38,10 @@ def parser():
     evaluation.add_argument(
         "--hardware", help="Operator-supplied hardware description, labeled as such"
     )
+    workflow = sub.add_parser("workflow", help="Run or resume a bounded document recipe")
+    workflow.add_argument("--recipe", type=Path, required=True)
+    workflow.add_argument("--output-dir", type=Path, required=True)
+    workflow.add_argument("--resume", action="store_true")
     sub.add_parser("mcp", help="Optional stdio MCP tools (install the mcp extra)")
     return root
 
@@ -58,6 +63,8 @@ async def execute(args, settings):
     try:
         if args.command == "doctor":
             report = await runtime.health()
+        elif args.command == "workflow":
+            report = await run_workflow(runtime, args.recipe, args.output_dir, args.resume)
         elif args.command == "evaluate":
             report = await evaluate(runtime, args.cases, args.hardware)
         else:
@@ -70,6 +77,8 @@ async def execute(args, settings):
             return 0 if report["status"] == "ok" else 1
         if args.command == "evaluate":
             return 0 if report["passed"] == report["total"] else 1
+        if args.command == "workflow":
+            return 0 if report["status"] == "completed" else 1
         return 0
     finally:
         await runtime.close()

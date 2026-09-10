@@ -1,0 +1,94 @@
+{
+  "factual_review": "pending",
+  "format_version": 1,
+  "identity": {
+    "evidence_sha256": "06dd8150f0967cf9736a54f30e9690b6fd86c8b8854441fd6dc8000b719a55c6",
+    "format_version": 1,
+    "model": {
+      "digest": "6488c96fa5faab64bb65cbd30d4289e20e6130ef535a93ef9a49f42eda893ea7",
+      "inventory_scope": "provider_reported_before_and_after_generation",
+      "profile": {
+        "keep_alive": "2m",
+        "model": "qwen3.5:9b",
+        "num_ctx": 8192,
+        "output_tokens": 768,
+        "revision": null,
+        "temperature": 0.0,
+        "thinking": false
+      }
+    },
+    "model_alias": "local-workbench",
+    "recipe_sha256": "b10bf88638c2bd33d414c57e121ac26a735923c5d5931f60acd4dcf70df0265e"
+  },
+  "review_status": "unreviewed_draft",
+  "semantic_entailment": "not_tested",
+  "stages": [
+    {
+      "attempts": [
+        {
+          "input_sha256": "698ee29c37a7ca145a463c4f99db1f7ee1827a1af3a8e5047841047abd98bb3c",
+          "latency_seconds": 14.328484,
+          "number": 1,
+          "output_sha256": "343869a2f3fb0863f8dee67484c850998ba5df91775432ce76338a3f4e132fd3",
+          "status": "completed",
+          "usage": {
+            "completion_tokens": 341,
+            "prompt_tokens": 414,
+            "total_tokens": 755
+          }
+        }
+      ],
+      "checks": {
+        "citation_membership": "passed",
+        "exact_quotes": "passed",
+        "headings": "passed",
+        "minimum_words": 60,
+        "review_status": "unreviewed_draft",
+        "schema": "passed",
+        "semantic_entailment": "not_tested",
+        "word_count": 74
+      },
+      "id": "fit",
+      "input_sha256": "698ee29c37a7ca145a463c4f99db1f7ee1827a1af3a8e5047841047abd98bb3c",
+      "output_sha256": "343869a2f3fb0863f8dee67484c850998ba5df91775432ce76338a3f4e132fd3",
+      "status": "completed"
+    },
+    {
+      "attempts": [
+        {
+          "input_sha256": "71855b840626d72275420eaffff73f140ea3baf8334707b480ce9fd066d66542",
+          "latency_seconds": 9.446926,
+          "number": 1,
+          "output_sha256": "5676f124c5b08dc675697b77c04949fc4c83f32c19b622aae5ace4b1627d929e",
+          "status": "completed",
+          "usage": {
+            "completion_tokens": 300,
+            "prompt_tokens": 696,
+            "total_tokens": 996
+          }
+        }
+      ],
+      "checks": {
+        "citation_membership": "passed",
+        "exact_quotes": "passed",
+        "headings": "passed",
+        "minimum_words": 60,
+        "review_status": "unreviewed_draft",
+        "schema": "passed",
+        "semantic_entailment": "not_tested",
+        "word_count": 83
+      },
+      "id": "draft",
+      "input_sha256": "71855b840626d72275420eaffff73f140ea3baf8334707b480ce9fd066d66542",
+      "output_sha256": "5676f124c5b08dc675697b77c04949fc4c83f32c19b622aae5ace4b1627d929e",
+      "status": "completed"
+    }
+  ],
+  "status": "completed",
+  "measurement": {
+    "hardware": "Apple M5 Pro, 24 GB unified memory",
+    "measured_at": "2026-09-10",
+    "fixture": "application-brief.json",
+    "scope": "Synthetic document stages. Structure, exact quotes, headings and minimum length only; not full real-world task quality."
+  }
+}

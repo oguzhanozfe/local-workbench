@@ -1,0 +1,124 @@
+{
+  "factual_review": "pending",
+  "format_version": 1,
+  "identity": {
+    "evidence_sha256": "70d8007d2d18d861b6ce414ebcaa17faf8a322b963806a5f4591f719fa95504b",
+    "format_version": 1,
+    "model": {
+      "digest": "6488c96fa5faab64bb65cbd30d4289e20e6130ef535a93ef9a49f42eda893ea7",
+      "inventory_scope": "provider_reported_before_and_after_generation",
+      "profile": {
+        "keep_alive": "2m",
+        "model": "qwen3.5:9b",
+        "num_ctx": 8192,
+        "output_tokens": 768,
+        "revision": null,
+        "temperature": 0.0,
+        "thinking": false
+      }
+    },
+    "model_alias": "local-workbench",
+    "recipe_sha256": "077838cfc2c5a0cc0aee6aef7d11a90761dd89c9752b3b46da5781fdc08067a5"
+  },
+  "review_status": "unreviewed_draft",
+  "semantic_entailment": "not_tested",
+  "stages": [
+    {
+      "attempts": [
+        {
+          "input_sha256": "a4e8c3795fb542ccc7fce858bf4b3f0941fd6192d0d0653014b794bca15300ee",
+          "latency_seconds": 15.553114,
+          "number": 1,
+          "output_sha256": "4079a4c3d499e2ab70c15fa96c5c34ab410b3733e236fe50b182c867d2311236",
+          "status": "completed",
+          "usage": {
+            "completion_tokens": 413,
+            "prompt_tokens": 383,
+            "total_tokens": 796
+          }
+        }
+      ],
+      "checks": {
+        "citation_membership": "passed",
+        "exact_quotes": "passed",
+        "headings": "passed",
+        "minimum_words": 80,
+        "review_status": "unreviewed_draft",
+        "schema": "passed",
+        "semantic_entailment": "not_tested",
+        "word_count": 123
+      },
+      "id": "core",
+      "input_sha256": "a4e8c3795fb542ccc7fce858bf4b3f0941fd6192d0d0653014b794bca15300ee",
+      "output_sha256": "4079a4c3d499e2ab70c15fa96c5c34ab410b3733e236fe50b182c867d2311236",
+      "status": "completed"
+    },
+    {
+      "attempts": [
+        {
+          "input_sha256": "fab636d9a2be69690c6698f3953f3a7bd76d6eb84834a42b66d661709f6ce21c",
+          "latency_seconds": 16.682738,
+          "number": 1,
+          "output_sha256": "bc0314c583594e6696ab2fdbb57cd1c536e3b3fc8ec206b094d581190280e1bb",
+          "status": "completed",
+          "usage": {
+            "completion_tokens": 542,
+            "prompt_tokens": 818,
+            "total_tokens": 1360
+          }
+        }
+      ],
+      "checks": {
+        "citation_membership": "passed",
+        "exact_quotes": "passed",
+        "headings": "passed",
+        "minimum_words": 80,
+        "review_status": "unreviewed_draft",
+        "schema": "passed",
+        "semantic_entailment": "not_tested",
+        "word_count": 165
+      },
+      "id": "progression",
+      "input_sha256": "fab636d9a2be69690c6698f3953f3a7bd76d6eb84834a42b66d661709f6ce21c",
+      "output_sha256": "bc0314c583594e6696ab2fdbb57cd1c536e3b3fc8ec206b094d581190280e1bb",
+      "status": "completed"
+    },
+    {
+      "attempts": [
+        {
+          "input_sha256": "cb747b2a3287520cd5431a6e84d2f94fff5ff255aa8d0a0df19bc4c4d6e42168",
+          "latency_seconds": 16.754497,
+          "number": 1,
+          "output_sha256": "bb9eff2de42c8d2b7f032dfbd9f5cde0c12a84303ef9667a91e5d17e3f05acfe",
+          "status": "completed",
+          "usage": {
+            "completion_tokens": 540,
+            "prompt_tokens": 1270,
+            "total_tokens": 1810
+          }
+        }
+      ],
+      "checks": {
+        "citation_membership": "passed",
+        "exact_quotes": "passed",
+        "headings": "passed",
+        "minimum_words": 80,
+        "review_status": "unreviewed_draft",
+        "schema": "passed",
+        "semantic_entailment": "not_tested",
+        "word_count": 169
+      },
+      "id": "review",
+      "input_sha256": "cb747b2a3287520cd5431a6e84d2f94fff5ff255aa8d0a0df19bc4c4d6e42168",
+      "output_sha256": "bb9eff2de42c8d2b7f032dfbd9f5cde0c12a84303ef9667a91e5d17e3f05acfe",
+      "status": "completed"
+    }
+  ],
+  "status": "completed",
+  "measurement": {
+    "hardware": "Apple M5 Pro, 24 GB unified memory",
+    "measured_at": "2026-09-10",
+    "fixture": "mobile-gdd.json",
+    "scope": "Synthetic document stages. Structure, exact quotes, headings and minimum length only; not full real-world task quality."
+  }
+}

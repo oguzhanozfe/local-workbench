@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "title": "Parcel Sort: mobile hybrid-casual design sketch",
+  "model": "local-workbench",
+  "language": "English",
+  "repairs": 1,
+  "evidence": [
+    {
+      "id": "brief.core",
+      "text": "This synthetic brief proposes a portrait mobile hybrid-casual puzzle about sorting colored parcels onto delivery belts. Use one-finger input and short levels. The prototype team is one Unity developer and one artist, with ten working days available.",
+      "approved": true,
+      "status": "current"
+    },
+    {
+      "id": "brief.scope",
+      "text": "Prototype scope permits three parcel colors, two belt layouts and one blocked-slot obstacle. Exclude accounts, multiplayer, live events and a server economy. Meta progression is a local depot decoration mockup. Ads and purchases are storyboard concepts only.",
+      "approved": true,
+      "status": "current"
+    },
+    {
+      "id": "brief.measurement",
+      "text": "No player study, market benchmark, CPI, retention or revenue result exists for this concept. Proposed tests must define their metric, denominator, observation window and decision rule. Proposed thresholds must be labeled assumptions, not industry benchmarks.",
+      "approved": true,
+      "status": "current"
+    }
+  ],
+  "stages": [
+    {
+      "id": "core",
+      "title": "Core loop",
+      "instructions": "Define one-finger input, board state, win and loss conditions, and a concrete first-level example. Choose unprovided numbers as explicit design assumptions. Stay within the approved prototype scope.",
+      "depends_on": [],
+      "evidence_ids": ["brief.core", "brief.scope"],
+      "output_tokens": 768,
+      "min_words": 80,
+      "required_headings": ["Rules", "First level"]
+    },
+    {
+      "id": "progression",
+      "title": "Progression and production scope",
+      "instructions": "Build on the prior core loop without changing its rules. Define a small difficulty sequence and depot-decoration mockup. Allocate work within ten working days and identify what is cut if time runs short. Monetization is a storyboard hypothesis only. List uncertainties that need a playable prototype.",
+      "depends_on": ["core"],
+      "evidence_ids": ["brief.core", "brief.scope", "brief.measurement"],
+      "output_tokens": 768,
+      "min_words": 80,
+      "required_headings": ["Progression", "Build plan"]
+    },
+    {
+      "id": "review",
+      "title": "Test plan and unresolved risks",
+      "instructions": "Review the preceding drafts for contradictions and scope expansion. Propose a small usability test with metric numerator, denominator, observation window and decision rule. Mark sample size and thresholds as assumptions. Do not claim market validation or infer commercial success. Name remaining design decisions that a person must review.",
+      "depends_on": ["core", "progression"],
+      "evidence_ids": ["brief.core", "brief.scope", "brief.measurement"],
+      "output_tokens": 768,
+      "min_words": 80,
+      "required_headings": ["Test plan", "Risks"]
+    }
+  ]
+}

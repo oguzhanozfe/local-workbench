@@ -1,8 +1,8 @@
 # Local Workbench
 
-A local inference gateway and task runner for evidence-based workflows. It maps model aliases to Ollama profiles, limits concurrent generation and validates structured output. Request measurements exclude prompts and responses.
+Run document tasks on Ollama in small, resumable stages. Each stage has selected evidence, an output budget and explicit checks. The runner saves progress and refuses to reuse it when the recipe, evidence or model changes.
 
-Existing clients connect through Chat Completions. A separate task API prepares immutable evidence packets for product briefs, requirement matching and decision review. Results include citations and remain unreviewed drafts.
+The same runtime provides a Chat Completions gateway and a separate API for evidence tasks. Results include citations and remain unreviewed drafts; structural checks do not establish factual accuracy. Operational logs exclude prompts and responses.
 
 ## Run
 
@@ -10,7 +10,7 @@ Requires Python 3.10+ and a running Ollama installation. The tested environment 
 
 ```sh
 python3 -m venv .venv
-.venv/bin/python -m pip install -e '.[test]'
+.venv/bin/python -m pip install -e .
 
 # Choose an absolute state directory outside this public checkout.
 export LOCAL_WORKBENCH_STATE=/absolute/path/to/local-workbench-state
@@ -30,6 +30,18 @@ Run the synthetic example:
 ```
 
 The [stack launcher](scripts/start-stack.sh) runs the gateway alongside [Evidence RAG](https://github.com/oguzhanozfe/evidence-rag). Install both projects locally and ingest the corpus explicitly.
+
+## Document workflows
+
+Build a document in small stages and resume after an interruption. Each stage receives selected approved evidence, an output budget and only its declared earlier drafts. The runner checks JSON structure, exact quotes, minimum length and required headings before saving progress.
+
+```sh
+.venv/bin/local-workbench --config config/mac.json workflow \
+  --recipe recipes/mobile-gdd.json \
+  --output-dir /absolute/private/path/gdd-trial
+```
+
+Add `--resume` with the same recipe, model and directory to continue unfinished stages. Completed output includes Markdown and a per-stage report with timings, token counts and evidence/model hashes. Artifacts remain unreviewed drafts. See [workflow recipes and integrity limits](docs/workflows.md); the second included recipe prepares a fictional application brief.
 
 ## API
 
