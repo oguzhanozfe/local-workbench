@@ -26,9 +26,24 @@ A small synthetic planning test with thinking enabled, a 65,536-token context an
 
 The `pc-reasoning` alias permits 8,192 output tokens, but this smoke test used a lower budget and only a short prompt. It is not a long-context accuracy test or a guarantee about maximum memory demand. See [reasoning configuration](reasoning.md) for the response and budget rules.
 
+## Separate OrcaRouter model
+
+The installed local model `qwen3.8-orcarouter:27b-q4_K_M` passed all six benign task fixtures at 32,768 context tokens, a 2,048-token output budget and thinking disabled. Across the five model calls, median request time was 5.39 seconds and median output rate was 38.52 tokens/s. A separate loaded-model snapshot reported 18,617,257,163 bytes entirely on GPU. These are single-run utility checks for JSON, citations and fixture behavior; they do not evaluate reduced refusal behavior or establish general quality. [Fixture report](../reports/rtx3090-uncensored.json), [residency snapshot](../reports/pc-uncensored-residency.json).
+
+The weights came from `bartowski/orcarouter_Qwen3.8-27B-Uncensored-GGUF`. The usual direct download remains:
+
+```sh
+ollama pull hf.co/bartowski/orcarouter_Qwen3.8-27B-Uncensored-GGUF:Q4_K_M
+```
+
+For this run, both downloaded GGUF blobs matched the source repository's published SHA-256 values, but registration did not finish during the observed pull. The cause was not determined. The cached files were explicitly imported under the local name above, using the working official Qwen3.8 renderer and parser.
+
+The [import record](../reports/uncensored-import.json) preserves the exact filenames, blob digests, template, renderer, parser and parameters. Its `import` object is the JSON body for `POST /api/create` on the intended Ollama server. This recipe requires those verified blobs to exist in that server's blob store; it does not download them. It sets `template:"{{ .Prompt }}"`, `renderer:"qwen3.8"` and `parser:"qwen3.5"`, and applies no additional quantization. Wait for the final success status and verify the resulting model with `/api/show`. [Ollama create API](https://docs.ollama.com/api/create), [version 0.33.3 request fields](https://github.com/ollama/ollama/blob/v0.33.3/api/types.go#L652).
+
 ## Scope
 
-Native Windows NVIDIA inference worked for these tests, so this deployment does not require a Linux partition. These results do not compare operating systems. 
+Native Windows NVIDIA inference worked for these tests, so this deployment does not require a Linux partition. These results do not compare operating systems. The official and modified models have separate reports and digests; neither model's measurements should be attributed to the other.
+
 To repeat the main fixture run, use `config/rtx3090.json` with `ollama_url` set to the intended loopback endpoint and an external state directory. Run `local-workbench --config /absolute/config.json evaluate --cases fixtures/evaluation.json --hardware 'Describe the actual host' --output /absolute/path/to/a-new-report.json`. Preserve the original reports and record any changed runtime settings.
 
 ## Workflow endpoints
