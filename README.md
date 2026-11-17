@@ -104,7 +104,7 @@ Each process runs one generation at a time. The default queue holds four waiting
 
 ## Integration and privacy
 
-[Existing workflow integration](docs/integration.md) covers HTTP bridge configuration and packet boundaries. Run the gateway on the Mac and connect to Ollama on the PC through an explicitly started SSH tunnel. The [Ollama launch scripts](scripts/serve-ollama.sh), also available in [PowerShell](scripts/serve-ollama.ps1), bind the backend to loopback.
+[Workflow integration](docs/integration.md) covers the Chat Completions endpoint and packet boundaries. Run the gateway on the Mac and connect to Ollama on the PC through an explicitly started SSH tunnel. The [Ollama launch scripts](scripts/serve-ollama.sh), also available in [PowerShell](scripts/serve-ollama.ps1), bind the backend to loopback.
 
 Metrics are written to `requests.jsonl` in the configured external state directory. They include request IDs, input hashes, model aliases, durations, status codes, attempt counts and available provider token/timing values. They omit prompts, responses, credentials and source paths. HTTP access logs are disabled. Saved task responses contain evidence and need the same privacy protections as the input corpus.
 
@@ -134,4 +134,4 @@ Install `pip install -e '.[mcp]'`, then run `local-workbench --config /absolute/
 
 Code in `src/local_workbench/` covers configuration, API contracts, Ollama transport, admission control, task validation, FastAPI routes, CLI and live evaluation. Install `requirements.lock` before an editable install to reproduce the tested dependency set. Fixtures are synthetic and contain no private career or product data.
 
-MIT licensed. Copyright 2026 Oğuzhan Özdemir.
+MIT licensed. Copyright 2026 Oguzhan Ozdemir.

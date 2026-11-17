@@ -25,7 +25,7 @@ The PC's 27B Q4 artifact is approximately 18 GB. File size is not total inferenc
 
 Keep one active generation and inspect `ollama ps` on the actual host after a profile change. The tested 32K and 64K allocations were entirely on GPU, but short fixture inputs do not establish long-context accuracy or peak memory requirements. Keep MTP variants and further context increases in separate evaluations.
 
-Native Windows NVIDIA support is sufficient for this setup; a Linux partition is not required. See [model selection](model-selection.md) for the runtime rationale and the separate, opt-in model with reduced refusal behavior.
+Native Windows NVIDIA support is sufficient for this setup; a Linux partition is not required. See [model selection](model-selection.md) for the runtime rationale.
 
 Linux/macOS: use `scripts/serve-ollama.sh` after ensuring another Ollama service is not occupying the port. Windows: use `scripts/serve-ollama.ps1` from PowerShell under the intended account. These foreground scripts set loopback binding and explicit local runtime settings. Review the script before use. Flash attention and quantized KV-cache behavior depend on the selected backend.
 
@@ -46,7 +46,7 @@ The gateway also defaults to loopback. If it must listen elsewhere, configure `a
 1. `ollama ps`: inspect the actual loaded model and CPU/GPU split.
 2. `local-workbench --config /absolute/config.json doctor`: verify the configured aliases map to installed model digests.
 3. Run the synthetic evaluation set and preserve its case/model hashes and measured values.
-4. Start with one workflow. Test queue contention before using both private workflows at once.
+4. Start with one workflow. Test queue contention before running several workflows at once.
 
 The gateway's single semaphore applies to one Python process. Multiple workers, a second gateway, or other direct Ollama clients can bypass that serialization. Keep the runtime's parallel limit explicit too.
 

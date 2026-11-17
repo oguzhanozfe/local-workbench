@@ -1,34 +1,14 @@
-# Existing workflow integration
+# Workflow integration
 
-Local Workbench accepts the nonstream Chat Completions shape used by an external workflow's HTTP bridge. Start the gateway and select the `local-workbench` alias. The current Mac profile maps that alias to Qwen3.5 9B with an 8,192-token context and a 768-token output budget. Changing the selected profile does not require changing the client's model alias. These commands run from the external application's checkout; `$REPO_ROOT` is that checkout, not this project.
-
-```sh
-cd "$REPO_ROOT"
-python3 tools/setup.py --non-interactive --backend http \
-  --model-name local-workbench \
-  --endpoint http://127.0.0.1:8090/v1/chat/completions
-
-# After inspecting the setup preview:
-python3 tools/setup.py --non-interactive --backend http \
-  --model-name local-workbench \
-  --endpoint http://127.0.0.1:8090/v1/chat/completions --apply
-
-python3 run.py --config config/local.json --doctor
-```
-
-The external setup command writes its ignored local provider configuration. Credentials and machine paths belong in operator-managed configuration, outside this public repository. Explicit `http` selection avoids a provider's `auto` mode choosing another installed model client.
-
-A one-off packet can use the existing bridge directly:
+Local Workbench exposes the nonstream Chat Completions shape, so any client that speaks it can switch to local models by changing only its endpoint and model alias. Start the gateway and select the `local-workbench` alias. The current Mac profile maps that alias to Qwen3.5 9B with an 8,192-token context and a 768-token output budget. Changing the selected profile does not require changing the client's model alias.
 
 ```sh
-python3 "$REPO_ROOT/tools/model_bridge.py" \
-  --packet /absolute/private/path/packet.json \
-  --output /absolute/private/path/new-draft.md \
-  http --model local-workbench \
-  --endpoint http://127.0.0.1:8090/v1/chat/completions
+curl -s http://127.0.0.1:8090/v1/chat/completions \
+  -H 'Content-Type: application/json' \
+  -d '{"model": "local-workbench", "messages": [{"role": "user", "content": "Summarize: ..."}]}'
 ```
 
-These examples assume the external tools expose those flags. They do not copy or install those tools. A small synthetic packet is sufficient to check transport compatibility before sending private material.
+Keep credentials and machine paths in the client's own ignored configuration, outside this repository. Check transport compatibility with a small synthetic request before sending real material.
 
 The gateway preserves full messages. Long existing packets may exceed its conservative admission limit and receive HTTP 413. Increasing a context profile requires checking real memory use; the gateway does not truncate source material to make the request succeed.
 
